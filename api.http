@@ -7,11 +7,11 @@ user_id=7181816&book_id=70431
 #### Recuperar una pelicula por id
 GET http://localhost:3000/movies/f4aea1ea-ad19-4363-9a83-a7afc09500ee
 #### Recuperar todas las peliculas por género
-GET http://localhost:3000/movies?genre=action
+GET http://localhost:3000/movies
 
 #### Crear una película con POST
 POST http://localhost:3000/movies
-Content-Type: application/json
+Content-Type:   
 
 {
   "title": "The Godfather",
