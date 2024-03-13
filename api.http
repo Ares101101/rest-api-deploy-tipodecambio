@@ -1,5 +1,8 @@
 #### Recuperar todas las peliculas
-GET http://localhost:3000/movies
+GET  https://elibro.net/api/notes/?user_id=7181816&book_id=70431
+
+
+user_id=7181816&book_id=70431
 
 #### Recuperar una pelicula por id
 GET http://localhost:3000/movies/f4aea1ea-ad19-4363-9a83-a7afc09500ee
