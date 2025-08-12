@@ -1,4 +1,4 @@
-import express, { json } from 'express'// require installed modules
+import express, { json } from 'express'
 import { routerRo } from './rutes/rute.js'
 import { corsmiddleware } from './middlewares/cors.js'
 const app = express()

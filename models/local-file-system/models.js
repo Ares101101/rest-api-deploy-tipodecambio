@@ -1,4 +1,4 @@
-import { readJSON, writeJSON } from '../../utils.js'
+import { readJSON } from '../../utils.js'
 
 const tipoDeCambio = readJSON('./tipodecambio.json')
 
@@ -20,7 +20,6 @@ export class TipoDeCambioModel {
 
   static async create ({ input }) {
     tipoDeCambio.push(input)
-    await writeJSON('./tipodecambio.json', tipoDeCambio)
     return input
   }
 
@@ -30,7 +29,6 @@ export class TipoDeCambioModel {
     )
     if (index === -1) return false
     tipoDeCambio.splice(index, 1)
-    await writeJSON('./tipodecambio.json', tipoDeCambio)
     return true
   }
 
@@ -43,7 +41,6 @@ export class TipoDeCambioModel {
       ...tipoDeCambio[index],
       ...input
     }
-    await writeJSON('./tipodecambio.json', tipoDeCambio)
     return tipoDeCambio[index]
   }
 }
