@@ -1,62 +1,49 @@
-import { readJSON } from '../../utils.js'
+import { readJSON, writeJSON } from '../../utils.js'
 
-const movies = readJSON('./movies.json')
+const tipoDeCambio = readJSON('./tipodecambio.json')
 
-export class MovieModel {
-  static async getAll ({ genre }) {
-    if (genre) {
-      return movies.filter(
-        movie => movie.genre.some(g => g.toLowerCase() === genre.toLowerCase())
+export class TipoDeCambioModel {
+  static async getAll ({ fecha }) {
+    if (fecha) {
+      return tipoDeCambio.filter(
+        item => item.fecPublica === fecha
       )
     }
-
-    return movies
+    return tipoDeCambio
   }
 
-  static async getById ({ id }) {
-    const movie = movies.find(movie => movie.id === id)
-    return movie
+  static async getByFechaYCodTipo ({ fecha, codTipo }) {
+    return tipoDeCambio.find(
+      item => item.fecPublica === fecha && item.codTipo === codTipo
+    )
   }
 
   static async create ({ input }) {
-    const newMovie = []
-    const formData = new URLSearchParams()
-    formData.append('grant_type ', 'client_credentials')
-    formData.append('scope', 'https://api.sunat.gob.pe/v1/contribuyente/contribuyentes')
-    formData.append('client_id ', input.client_id)
-    formData.append('client_secret', input.client_secret)
-
-    const requestOptions = {
-      method: 'POST',
-      body: formData,
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-      }
-    }
-
-    await fetch(`https://api-seguridad.sunat.gob.pe/v1/clientesextranet/${input.client_id}/oauth2/token/`, requestOptions)
-      .then(response => newMovie.push(response))
-
-    return newMovie[0]
+    tipoDeCambio.push(input)
+    await writeJSON('./tipodecambio.json', tipoDeCambio)
+    return input
   }
 
-  static async delete ({ id }) {
-    const movieIndex = movies.findIndex(movie => movie.id === id)
-    if (movieIndex === -1) return false
-
-    movies.splice(movieIndex, 1)
+  static async delete ({ fecha, codTipo }) {
+    const index = tipoDeCambio.findIndex(
+      item => item.fecPublica === fecha && item.codTipo === codTipo
+    )
+    if (index === -1) return false
+    tipoDeCambio.splice(index, 1)
+    await writeJSON('./tipodecambio.json', tipoDeCambio)
     return true
   }
 
-  static async update ({ id, input }) {
-    const movieIndex = movies.findIndex(movie => movie.id === id)
-    if (movieIndex === -1) return false
-
-    movies[movieIndex] = {
-      ...movies[movieIndex],
+  static async update ({ fecha, codTipo, input }) {
+    const index = tipoDeCambio.findIndex(
+      item => item.fecPublica === fecha && item.codTipo === codTipo
+    )
+    if (index === -1) return false
+    tipoDeCambio[index] = {
+      ...tipoDeCambio[index],
       ...input
     }
-
-    return movies[movieIndex]
+    await writeJSON('./tipodecambio.json', tipoDeCambio)
+    return tipoDeCambio[index]
   }
 }

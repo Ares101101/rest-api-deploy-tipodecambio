@@ -1,52 +1,57 @@
-import { MovieModel } from '../models/controllers/'
-import { validateMovie, validatePartialMovie } from '../schemas/movies.js'
+import { TipoDeCambioModel } from '../models/local-file-system/models.js'
+import { validateTipoDeCambio, validatePartialTipoDeCambio } from '../schemas/TipodeCambio.js'
 
 export class routeController {
   static async getAll (req, res) {
-    const { genre } = req.query
-    const movies = await MovieModel.getAll({ genre })
-    res.json(movies)
+    const { fecha } = req.query
+    const tiposDeCambio = await TipoDeCambioModel.getAll({ fecha })
+    res.json(tiposDeCambio)
   }
 
-  static async getById (req, res) {
-    // path-to-regexp
-    const { id } = req.params
-    const movie = await MovieModel.getById({ id })
-    if (movie) return res.json(movie)
-    res.status(404).json({ message: 'Movie not found' })
+  static async getByFechaYCodTipo (req, res) {
+    const { fecha, codTipo } = req.query
+    if (!fecha || !codTipo) {
+      return res.status(400).json({ message: 'fecha y codTipo son requeridos' })
+    }
+    const tipoDeCambio = await TipoDeCambioModel.getByFechaYCodTipo({ fecha, codTipo })
+    if (tipoDeCambio) return res.json(tipoDeCambio)
+    res.status(404).json({ message: 'Tipo de cambio no encontrado' })
   }
 
   static async create (req, res) {
-    const result = validateMovie(req.body)
-
+    const result = validateTipoDeCambio(req.body)
     if (!result.success) {
       return res.status(400).json({ error: JSON.parse(result.error.message) })
     }
-    const newMovie = await MovieModel.create({ input: result.data })
-    res.status(201).json(newMovie)
+    const nuevoTipoDeCambio = await TipoDeCambioModel.create({ input: result.data })
+    res.status(201).json(nuevoTipoDeCambio)
   }
 
   static async delete (req, res) {
-    const { id } = req.params
-
-    const result = await MovieModel.delete({ id })
-
-    if (result === false) {
-      return res.status(404).json({ message: 'Movie not found' })
+    const { fecha, codTipo } = req.query
+    if (!fecha || !codTipo) {
+      return res.status(400).json({ message: 'fecha y codTipo son requeridos' })
     }
-
-    return res.json({ message: 'Movie deleted' })
+    const result = await TipoDeCambioModel.delete({ fecha, codTipo })
+    if (result === false) {
+      return res.status(404).json({ message: 'Tipo de cambio no encontrado' })
+    }
+    return res.json({ message: 'Tipo de cambio eliminado' })
   }
 
   static async update (req, res) {
-    const result = validatePartialMovie(req.body)
+    const result = validatePartialTipoDeCambio(req.body)
     if (!result.success) {
       return res.status(400).json({ error: JSON.parse(result.error.message) })
     }
-
-    const { id } = req.params
-
-    const updatedMovie = await MovieModel.update({ id, input: result.data })
-    return res.json(updatedMovie)
+    const { fecha, codTipo } = req.query
+    if (!fecha || !codTipo) {
+      return res.status(400).json({ message: 'fecha y codTipo son requeridos' })
+    }
+    const updatedTipoDeCambio = await TipoDeCambioModel.update({ fecha, codTipo, input: result.data })
+    if (!updatedTipoDeCambio) {
+      return res.status(404).json({ message: 'Tipo de cambio no encontrado' })
+    }
+    return res.json(updatedTipoDeCambio)
   }
 }

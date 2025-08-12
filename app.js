@@ -6,7 +6,7 @@ app.use(json())
 app.use(corsmiddleware())
 app.disable('x-powered-by')// disable header express
 
-app.use('/movies', routerRo)
+app.use('/Tipodecambio', routerRo)
 
 const PORT = process.env.PORT ?? 3000
 

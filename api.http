@@ -1,37 +1,25 @@
-#### Recuperar todas las peliculas
-GET  https://elibro.net/api/notes/?user_id=7181816&book_id=70431
+### Obtener todos los tipos de cambio
+GET http://localhost:3000/Tipodecambio
 
-
-user_id=7181816&book_id=70431
-
-#### Recuperar una pelicula por id
-GET http://localhost:3000/movies/f4aea1ea-ad19-4363-9a83-a7afc09500ee
-#### Recuperar todas las peliculas por género
-GET http://localhost:3000/movies
-
-#### Crear una película con POST
-POST http://localhost:3000/movies
-Content-Type:   
-
-{
-  "title": "The Godfather",
-  "year": 1975,
-  "director": "Francis Ford Coppola",
-  "duration": 175,
-  "poster": "https://img.fruugo.com/product/4/49/14441494_max.jpg",
-  "genre": [
-    "Crime",
-    "Drama"
-  ]
-}
-
-#### Actualizar una pelicula
-PATCH http://localhost:3000/movies/f0bcd26e-941a-4d61-a38b-b851171ceeef
+### Obtener tipo de cambio por fecha y codTipo
+GET http://localhost:3000/Tipodecambio/by?fecha=02/07/2025&codTipo=V
+### Crear un nuevo tipo de cambio
+POST http://localhost:3000/Tipodecambio
 Content-Type: application/json
 
 {
-  
+  "fecPublica": "12/08/2024",
+  "valTipo": "3.75",
+  "codTipo": "C"
 }
 
-#### Delete
-DELETE  http://localhost:3000/movies/e0eecf41-00d6-4512-b8f1-1a50dd1aed2e
+### Actualizar un tipo de cambio
+PATCH http://localhost:3000/Tipodecambio/2024/08/12/C
+Content-Type: application/json
+
+{
+  "valTipo": "3.80"
+}
+
+### Eliminar un tipo de cambio
+DELETE http://localhost:3000/Tipodecambio?fecha=2024-08-12&codTipo=C

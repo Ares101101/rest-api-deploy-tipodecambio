@@ -5,10 +5,10 @@ export const routerRo = Router()
 
 routerRo.get('/', routeController.getAll)
 
-routerRo.get('/:id', routeController.getById)
+routerRo.get('/by', routeController.getByFechaYCodTipo)
 
 routerRo.post('/', routeController.create)
 
-routerRo.delete('/:id', routeController.delete)
+routerRo.delete('/', routeController.delete)
 
-routerRo.patch('/:id', routeController.update)
+routerRo.patch('/', routeController.update)
