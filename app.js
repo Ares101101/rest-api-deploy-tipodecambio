@@ -20,3 +20,6 @@ app.use((req, res) => {
 })
 
 export default app
+if (typeof module !== 'undefined') {
+  module.exports = app
+}
