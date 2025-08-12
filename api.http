@@ -14,7 +14,7 @@ Content-Type: application/json
 }
 
 ### Actualizar un tipo de cambio
-PATCH http://localhost:3000/Tipodecambio/2024/08/12/C
+PATCH http://localhost:3000/Tipodecambio/by?fecha=12/08/2024&codTipo=C
 Content-Type: application/json
 
 {

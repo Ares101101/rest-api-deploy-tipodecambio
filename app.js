@@ -10,6 +10,4 @@ app.use('/Tipodecambio', routerRo)
 
 const PORT = process.env.PORT ?? 3000
 
-app.listen(PORT, () => {
-  console.log(`server listening on por http://localhost:${PORT}`)
-})
+export default app
