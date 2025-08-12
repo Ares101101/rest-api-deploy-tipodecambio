@@ -1,6 +1,6 @@
 import express, { json } from 'express'// require installed modules
-import { routerRo } from '../rutes/rute.js'
-import { corsmiddleware } from '../middlewares/cors.js'
+import { routerRo } from './rutes/rute.js'
+import { corsmiddleware } from './middlewares/cors.js'
 const app = express()
 app.use(json())
 
