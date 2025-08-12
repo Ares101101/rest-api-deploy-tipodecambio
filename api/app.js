@@ -3,6 +3,7 @@ import { routerRo } from '../rutes/rute.js'
 import { corsmiddleware } from '../middlewares/cors.js'
 const app = express()
 app.use(json())
+
 app.use(corsmiddleware())
 app.disable('x-powered-by')// disable header express
 
@@ -14,4 +15,8 @@ app.listen(PORT, () => {
   console.log(`server listening on por http://localhost:${PORT}`)
 })
 
-module.exports = app
+app.use((req, res) => {
+  res.status(404).json({ message: 'Ruta no encontrada' })
+})
+
+export default app
