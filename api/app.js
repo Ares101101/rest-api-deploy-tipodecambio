@@ -1,6 +1,6 @@
 import express, { json } from 'express'// require installed modules
-import { routerRo } from './rutes/rute.js'
-import { corsmiddleware } from './middlewares/cors.js'
+import { routerRo } from '../rutes/rute.js'
+import { corsmiddleware } from '../middlewares/cors.js'
 const app = express()
 app.use(json())
 app.use(corsmiddleware())
@@ -10,4 +10,8 @@ app.use('/Tipodecambio', routerRo)
 
 const PORT = process.env.PORT ?? 3000
 
-export default app
+app.listen(PORT, () => {
+  console.log(`server listening on por http://localhost:${PORT}`)
+})
+
+module.exports = app
