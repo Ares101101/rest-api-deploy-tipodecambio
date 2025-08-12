@@ -1,4 +1,4 @@
-import { TipoDeCambioModel } from '../models/local-file-system/models.js'
+import { TipoDeCambioModel } from '../models/sql/models.js'
 import { validateTipoDeCambio, validatePartialTipoDeCambio } from '../schemas/TipodeCambio.js'
 
 export class routeController {

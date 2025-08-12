@@ -1,6 +1,10 @@
 import express, { json } from 'express'
 import { routerRo } from './rutes/rute.js'
 import { corsmiddleware } from './middlewares/cors.js'
+import dotenv from 'dotenv'
+
+dotenv.config()
+
 const app = express()
 app.use(json())
 
@@ -9,7 +13,7 @@ app.disable('x-powered-by')// disable header express
 
 app.use('/Tipodecambio', routerRo)
 
-const PORT = process.env.PORT ?? 3000
+const PORT = process.env.PORT
 
 app.listen(PORT, () => {
   console.log(`server listening on por http://localhost:${PORT}`)
